@@ -1,0 +1,184 @@
+function (addProject projectName)
+	project(${projectName})
+	message("Creating Project")
+	message("${projectName}")
+	set("${projectName}_SRCS" "" CACHE STRING "Source files for the project" FORCE)
+	set("${projectName}_DIRS" "" CACHE STRING "Project folders for the project" FORCE)
+	set("${projectName}_MAINFILES" "" CACHE STRING "main source files for the project" FORCE)
+	set("${projectName}_CUDALIBS" "" CACHE STRING "CUDA library files for the project" FORCE)
+	set("${projectName}_CUDASRCS" "" CACHE STRING "CUDA source files for the project" FORCE)
+	set("${projectName}_OCVLIBS" "" CACHE STRING "Setting Source macro for the project" FORCE)
+	set("${projectName}_PTHREADSLIBS" "" CACHE STRING "Setting Source macro for the project" FORCE)
+	set("${projectName}_PTHREADSDLLS" "" CACHE STRING "Setting Source macro for the project" FORCE)
+	add_subdirectory(${projectName})
+endfunction()
+
+
+function(addSources)
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_SRCS"    "${${projectName}_SRCS};${filelist}" CACHE STRING "Setting list of files for the project" FORCE)
+endfunction()
+
+function(addCUDASources)
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_CUDASRCS"    "${${projectName}_CUDASRCS};${filelist}" CACHE STRING "Setting list of files for the project" FORCE)
+endfunction()
+
+function(addMainFile)
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_MAINFILES"    "${${projectName}_MAINFILES};${filelist}" CACHE STRING "Setting list of files for the project" FORCE)
+endfunction()
+
+
+function(addOpenCVLIbraries)
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_OCVLIBS"    "${${projectName}_OCVLIBS};${filelist}" CACHE STRING "Setting list of openCV libraries for the project" FORCE)
+endfunction()
+
+function(addPthreadLIbraries)
+    message(Adding Library)
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		message(${srcfile})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_PTHREADSLIBS"    "${${projectName}_PTHREADSLIBS};${filelist}" CACHE STRING "Setting list of openCV libraries for the project" FORCE)
+endfunction()
+
+function(addPthreadDlls)
+	set(listVar "")
+	message("Adding file")
+	foreach( srcfile ${ARGN})
+		message("${srcfile}")
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_PTHREADSDLLS"    "${${projectName}_PTHREADSDLLS};${filelist}" CACHE STRING "Setting list of openCV libraries for the project" FORCE)
+endfunction()
+
+
+function(addCUDALibs)
+	message(" Adding CUDA LIBS")
+	set(listVar "")
+	foreach( srcfile ${ARGN})
+		LIST(APPEND listVar ${srcfile})
+		set(filelist ${filelist} ${srcfile})
+	endforeach()
+	set("${projectName}_CUDALIBS"    "${${projectName}_CUDALIBS};${filelist}" CACHE STRING "Setting list of CUDA libraries for the project" FORCE)
+endfunction()
+
+function (addSubDirectory path)
+	set(currentAbsolutePath "${CMAKE_CURRENT_SOURCE_DIR}/${path}")
+	include_directories("${currentAbsolutePath}")
+	set("${projectName}_DIRS"    "${${projectName}_DIRS};${currentAbsolutePath}" CACHE STRING "Setting list of CUDA libraries for the project" FORCE)
+	add_subdirectory("${path}")
+endfunction()
+
+function (linkOpenCVLibrary libname)
+	set(libPath "${OPENCV_LIB}/${libname}d.lib")
+	target_link_libraries(${projectName} ${ARGN}
+	debug "${OPENCV_LIB}/${libname}d.lib"
+	optimized "${OPENCV_LIB}/${libname}.lib")
+	
+	file(COPY "${OPENCV_BIN}/${libname}d.dll"
+	DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+	
+	file(COPY "${OPENCV_BIN}/${libname}.dll"
+	DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+endfunction()
+
+function (linkPthreadLibrary libname)
+	set(libPath "${PTHREAD_PATH_CMAKE}/lib/x86/${libname}.lib")
+	message("${libPath}")
+	target_link_libraries(${projectName} ${ARGN}
+	debug "${PTHREAD_PATH_CMAKE}/lib/x86/${libname}.lib"
+	optimized "${PTHREAD_PATH_CMAKE}/lib/x86/${libname}.lib")
+endfunction()
+
+function (copyPthreadLibrary libname)
+	message("${PTHREAD_PATH_CMAKE}/dll/x86/${libname}.dll")
+	message("${PTHREAD_PATH_CMAKE}/dll/x86/${libname}.dll")
+	message("${CMAKE_BINARY_DIR}")
+	set(DLL_PATH "${PTHREAD_PATH_CMAKE}/dll/x86/${libname}.dll")
+    if (EXISTS ${DLL_PATH})
+        file(COPY "${DLL_PATH}"
+              DESTINATION ${CMAKE_BINARY_DIR}/${projectName}/Debug )
+	    file(COPY "${DLL_PATH}"
+             DESTINATION ${CMAKE_BINARY_DIR}/${projectName}/Release)
+    endif()
+	#add_custom_command(TARGET ${projectName} POST_BUILD COMMAND -E copy "${PTHREAD_PATH_CMAKE}/dll/x86/${libname}.dll" ${CMAKE_BINARY_DIR} COMMENT "Copying pthread dlls")
+endfunction()
+	
+function (linkCUDALibs libName)
+	target_link_libraries(${projectName} "${CUDA_LIBRARY}/${libName}.lib")
+endfunction()
+
+
+function (includePath pathVar) 
+	include_directories("${pathVar}";)
+endfunction()
+
+function(createProject)
+	add_executable(${projectName}
+	${ALL_HEADERS}
+	${${projectName}_SRCS}	
+	${${projectName}_MAINFILES} )
+					
+	foreach(libVal ${${projectName}_OCVLIBS})
+		linkOpenCVLibrary("${libVal}")
+	endforeach()
+	
+	foreach(libVal ${${projectName}_OCVLIBS})
+		linkOpenCVLibrary("${libVal}")
+	endforeach()
+	
+	foreach(libVal ${${projectName}_PTHREADSLIBS})
+		message("linking Pthread")
+		linkPthreadLibrary("${libVal}")
+	endforeach()
+	
+	foreach(libVal ${${projectName}_PTHREADSDLLS})
+	    message("copy linking Pthread")
+		copyPthreadLibrary("${libVal}")
+	endforeach()
+endfunction()
+
+
+function(createProjectCUDA)
+	message(*********************************)
+	message(${CUDA_NVCC_FLAGS})
+	message(*********************************)
+	CUDA_ADD_EXECUTABLE(${projectName}
+	${ALL_HEADERS}
+	${${projectName}_SRCS}	
+	${${projectName}_CUDASRCS}
+	${${projectName}_MAINFILES}
+	OPTIONS	${CUDA_NVCC_FLAGS})
+					
+	foreach(libVal ${${projectName}_OCVLIBS})
+		linkOpenCVLibrary("${libVal}")
+	endforeach()
+	
+	foreach(libCUDA ${${projectName}_CUDALIBS})
+		linkCUDALibs("${libCUDA}")
+	endforeach()
+endfunction()
+
+

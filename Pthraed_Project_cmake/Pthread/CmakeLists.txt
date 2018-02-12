@@ -1,0 +1,14 @@
+#addSubDir("Source")
+#STRING(REGEX REPLACE "")
+STRING(REGEX REPLACE "\\\\" "/" PTHREAD_PATH_CMAKE ${PTHREAD_PATH_CMAKE} )
+include_directories("${PTHREAD_PATH_CMAKE}/include")
+addPthreadLIbraries(pthreadVC2)
+addPthreadDlls(pthreadVC2)
+addPthreadDlls(pthreadGC2)
+addSubDirectory("threadUtils")
+addSubDirectory("Source")
+
+#-----------
+
+# Add OpenCV libraries here
+createProject("--force")	# Must be at the end

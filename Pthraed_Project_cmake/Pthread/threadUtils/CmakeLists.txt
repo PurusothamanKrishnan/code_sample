@@ -1,0 +1,33 @@
+
+#-----------
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+set(HFILES_PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/commonHeader.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/conditionWrapper.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/locker.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/mutex.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/sharedMutex.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/threadWrapper.hpp
+)
+set(CPPFILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/conditionWrapper.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/locker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/mutex.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/sharedMutex.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/threadWrapper.cpp
+)
+#set(HFILES_PUBLIC
+#  )
+ 
+#addGroup("ImageProcessing" ${HFILES_PUBLIC} ${CUFILES} ${CPPFILES})
+addSources(${HFILES_PUBLIC} ${CPPFILES})
+
+
+
+
+  
+
+
+

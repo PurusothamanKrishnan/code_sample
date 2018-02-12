@@ -1,0 +1,21 @@
+
+#-----------
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+set(CPPFILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+  )
+#set(HFILES_PUBLIC
+#  )
+ 
+#addGroup("ImageProcessing" ${HFILES_PUBLIC} ${CUFILES} ${CPPFILES})
+addSources(${HFILES_PUBLIC} ${CPPFILES})
+
+
+
+
+  
+
+
+
