@@ -19,12 +19,14 @@ using namespace std;
 using namespace threading;
 
 #define  MAX_NUM_ELEMENTS 20
-#define READER_WRITER 1
+#define READER_WRITER 0
+
+#if READER_WRITER
 int arr[20];
 int numElements = 0;
 int val = 100;
 int index = 0;
-#if READER_WRITER
+
 struct objList {
 	sharedMutex readerLock;
 	sharedMutex writerLock;
