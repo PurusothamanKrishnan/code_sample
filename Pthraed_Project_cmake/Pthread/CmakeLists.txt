@@ -6,6 +6,7 @@ addPthreadLIbraries(pthreadVC2)
 addPthreadDlls(pthreadVC2)
 addPthreadDlls(pthreadGC2)
 addSubDirectory("threadUtils")
+addSubDirectory("MasterSlaves")
 addSubDirectory("Source")
 
 #-----------

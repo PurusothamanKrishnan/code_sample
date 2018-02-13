@@ -1,12 +1,14 @@
-/* ============================================================================
-* Introduction to Operating Systems
-* CS 8803, GT OMSCS
-*
-* Unauthorized copying of this file, via any medium is strictly prohibited.
-*
-* "priority-readers-and-writers.c"
-* Implements the "Priority Readers and Writers" in Problem Set 1.
-============================================================================ */
+/*=============================================================================
+start of file
+=============================================================================*/
+
+//! \file    main.cpp
+//! \author  Purusothaman Krishnan
+//! \date    09-02-2018
+//!
+//! \brief   main file - start of the program
+//!
+//--------------------------------------------------------------------------- 
 
 #include <pthread.h>
 #include <iostream>
