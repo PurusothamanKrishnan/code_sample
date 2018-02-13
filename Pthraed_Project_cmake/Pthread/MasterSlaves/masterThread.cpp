@@ -15,16 +15,18 @@ start of file
 namespace framework {
 
 masterThreadClass::masterThreadClass() {
-
+	mNumChildThreads = 0;
+	mRunnableThreads.clear();
 }
 
 masterThreadClass::~masterThreadClass() {
-
+	mRunnableThreads.clear();
 }
 
 void masterThreadClass::addThreadToRunList(void *obj) {
-
-
+	childThreadClassType *tmpObj = static_cast<childThreadClassType*>(obj);
+	std::string str = tmpObj->getThreadIdentifier();
+	mRunnableThreads.insert(pairType(str,tmpObj));
 }
 
 

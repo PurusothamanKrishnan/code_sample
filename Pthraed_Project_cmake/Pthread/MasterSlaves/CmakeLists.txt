@@ -1,0 +1,29 @@
+
+#-----------
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+set(HFILES_PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/abstractThread.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/childThread.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/masterThread.hpp
+)
+
+set(CPPFILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/abstractThread.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/childThread.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/masterThread.cpp
+  )
+#set(HFILES_PUBLIC
+#  )
+ 
+#addGroup("ImageProcessing" ${HFILES_PUBLIC} ${CUFILES} ${CPPFILES})
+addSources(${HFILES_PUBLIC} ${CPPFILES})
+
+
+
+
+  
+
+
+
