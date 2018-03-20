@@ -7,6 +7,12 @@ addPthreadDlls(pthreadVC2)
 addPthreadDlls(pthreadGC2)
 addSubDirectory("threadUtils")
 addSubDirectory("MasterSlaves")
+addSubDirectory("videoReader")
+addSubDirectory("videoDisplay")
+addSubDirectory("imageCorrection")
+addSubDirectory("imageDisplay")
+addSubDirectory("imageRight")
+addSubDirectory("imageFront")
 addSubDirectory("Source")
 
 #-----------

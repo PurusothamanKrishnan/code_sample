@@ -1,4 +1,4 @@
-//! \file    threadWrapper.h
+//! \file    threadWrapper.hpp
 //! \author  Purusothaman Krishnan
 //! \date    09-02-2018
 //!

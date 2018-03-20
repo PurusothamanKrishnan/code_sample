@@ -98,10 +98,10 @@ function (linkOpenCVLibrary libname)
 	optimized "${OPENCV_LIB}/${libname}.lib")
 	
 	file(COPY "${OPENCV_BIN}/${libname}d.dll"
-	DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+	DESTINATION ${CMAKE_BINARY_DIR}/${projectName}/Debug)
 	
 	file(COPY "${OPENCV_BIN}/${libname}.dll"
-	DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+	DESTINATION ${CMAKE_BINARY_DIR}/${projectName}/Release)
 endfunction()
 
 function (linkPthreadLibrary libname)

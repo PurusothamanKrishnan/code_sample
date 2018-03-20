@@ -6,9 +6,11 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 set(CPPFILES
   ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
   )
+  
+set(OPENCVLIBS opencv_calib3d300 opencv_core300 opencv_features2d300 opencv_flann300 opencv_highgui300 opencv_imgproc300 opencv_ml300 opencv_objdetect300 opencv_video300 opencv_videoio300)
 #set(HFILES_PUBLIC
 #  )
- 
+addOpenCVLIbraries(${OPENCVLIBS})
 #addGroup("ImageProcessing" ${HFILES_PUBLIC} ${CUFILES} ${CPPFILES})
 addSources(${HFILES_PUBLIC} ${CPPFILES})
 

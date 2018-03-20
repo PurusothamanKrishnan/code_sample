@@ -17,12 +17,19 @@
 //---------------------------------------------------------------------------
 // Includes
 //---------------------------------------------------------------------------
-
+#include "conditionWrapper.hpp"
+#include "mutex.hpp"
+#include "abstractThread.hpp"
+#include "threadWrapper.hpp"
 //---------------------------------------------------------------------------
 // forward declaration
 //---------------------------------------------------------------------------
 
-
+//typedef struct threadInputArgs {
+//	threading::condClass* masterThreadCond;
+//	threading::Mutex* masterMutex;
+//	framework::abstractThreadClass* childThreadObj;
+//} threadInterface;
 //---------------------------------------------------------------------------
 // declaration
 //---------------------------------------------------------------------------

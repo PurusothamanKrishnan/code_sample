@@ -18,7 +18,7 @@ ENDIF()
 #include_directories(
 #		"${OPENCV_DEBUG}/build/include";	
 #)
-includePath("${OPENCV_DEBUG}/opencv/build/include")
+includePath("${OPENCV_DEBUG}/opencv/include")
 #find_file(PTHREAD_PATH )
 
 # Defines
